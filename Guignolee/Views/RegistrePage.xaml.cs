@@ -41,7 +41,7 @@ namespace Guignolee.Views
 
         private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: À compléter
+            
         }
 
         private void btnMarquerRemis_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,10 @@ namespace Guignolee.Views
 
         private void btnAjouter_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AjouterDon();
+            if (ViewModel.NouveauDon.EstValide)
+            {
+                ViewModel.AjouterDon();
+            }
         }
     }
 }

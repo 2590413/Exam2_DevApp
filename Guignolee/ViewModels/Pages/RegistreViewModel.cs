@@ -3,11 +3,12 @@ using Guignolee.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Guignolee.ViewModels.Pages
 {
-    public class RegistreViewModel : BaseViewModel
+    public class RegistreViewModel : ValidableViewModel
     {
         private readonly IDonDataProvider _donDataProvider;
 
@@ -71,7 +72,13 @@ namespace Guignolee.ViewModels.Pages
         {
             // TODO: À compléter selon la documentation de la méthode.
 
-            DonSelectionne = null;
+            List<Don> dons = _donDataProvider.GetDons();
+
+
+            foreach (Don don in dons)
+            {
+                Dons.Add(new DonViewModel(don));
+            }
         }
 
         /// <summary>
@@ -79,10 +86,11 @@ namespace Guignolee.ViewModels.Pages
         /// Le don est ajouté au fournisseur de données et la liste des dons est rechargée.
         /// </summary>
         public void AjouterDon()
-        {
+        {   
             _donDataProvider.AjouterDon(new Don(NouveauDon.Donateur, NouveauDon.Contenu, NouveauDon.Quantite, NouveauDon.EstPerissable));
-            ChargerDonnees();
-            NouveauDon = new DonViewModel(new Don());
+
+            Dons.Add(NouveauDon);
+            NouveauDon = new DonViewModel(new Don(string.Empty));
         }
     }
 }
