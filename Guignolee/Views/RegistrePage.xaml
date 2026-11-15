@@ -73,6 +73,10 @@
                             Text="Dons à remettre"
                             TextWrapping="Wrap" />
                     </Border>
+                    <!--
+                        TODO: Question 4 : 1. liaison de données TwoWay avec le don sélectionné
+                        SelectedItem="{x:Bind ViewModel.DonSelectionne, Mode=TwoWay}"
+                    -->
                     <ListView
                         Height="320"
                         Margin="0,8"
@@ -139,15 +143,11 @@
                             <TextBox
                                 Header="Donateur"
                                 PlaceholderText="Prénom Nom"
-                                Text="{x:Bind ViewModel.NouveauDon.Donateur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                />
-                                
-                            <ItemsView 
-                                  ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Donateur'), Mode=OneWay}" 
-                                  Foreground="Coral"
-                                >       
+                                Text="{x:Bind ViewModel.NouveauDon.Donateur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <ItemsView Foreground="Coral" ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Donateur'), Mode=OneWay}">
                                 <ItemsView.Resources>
-                                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent" />
                                 </ItemsView.Resources>
 
                             </ItemsView>
@@ -158,11 +158,9 @@
                                 Header="Contenu du don"
                                 PlaceholderText="Ex. : Conserves de soupe"
                                 Text="{x:Bind ViewModel.NouveauDon.Contenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ItemsView 
-                                ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Contenu'), Mode=OneWay}" 
-                                Foreground="Coral">
+                            <ItemsView Foreground="Coral" ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Contenu'), Mode=OneWay}">
                                 <ItemsView.Resources>
-                                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent" />
                                 </ItemsView.Resources>
                             </ItemsView>
                         </StackPanel>
@@ -173,16 +171,17 @@
                                 MaxLength="3"
                                 PlaceholderText="Ex. : 24"
                                 Text="{x:Bind ViewModel.NouveauDon.Quantite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ItemsView 
-                                ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Quantite'), Mode=OneWay}" 
-                                Foreground="Coral">     
+                            <ItemsView Foreground="Coral" ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Quantite'), Mode=OneWay}">
                                 <ItemsView.Resources>
-                                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent" />
                                 </ItemsView.Resources>
                             </ItemsView>
 
                         </StackPanel>
-
+                        <!--
+                            TODO:
+                            IsChecked="{x:Bind ViewModel.NouveauDon.EstPerissable, Mode=TwoWay}"
+                        -->
                         <CheckBox
                             Grid.Column="3"
                             Margin="0,28,0,0"
@@ -196,10 +195,10 @@
                             VerticalAlignment="Top"
                             Background="#A4262C"
                             Click="btnAjouter_Click"
-                            IsEnabled="{x:Bind ViewModel.NouveauDon.EstValide, Mode=OneWay}"
-                            Style="{StaticResource AccentButtonStyle}"
                             Content="Ajouter"
-                            Foreground="White" />
+                            Foreground="White"
+                            IsEnabled="{x:Bind ViewModel.NouveauDon.EstValide, Mode=OneWay}"
+                            Style="{StaticResource AccentButtonStyle}" />
                     </Grid>
                 </StackPanel>
             </Border>

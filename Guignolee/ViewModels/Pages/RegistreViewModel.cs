@@ -70,7 +70,7 @@ namespace Guignolee.ViewModels.Pages
         /// </summary>
         public void ChargerDonnees()
         {
-            // TODO: À compléter selon la documentation de la méthode.
+            // TODO: Utiliser les méthodes linq pour filtrer et trier (https://projets420.gitbook.io/asp.net/420-3p3-dev.-applications-windows/c/les-expression-lambda#exercice-methodes-linq-et-expression-lambda)
 
             List<Don> dons = _donDataProvider.GetDons();
 
@@ -79,6 +79,8 @@ namespace Guignolee.ViewModels.Pages
             {
                 Dons.Add(new DonViewModel(don));
             }
+
+            // TODO: Question 1 : RaisePropertyChanged pour notifier que la propriété EtatDons a changé.
         }
 
         /// <summary>
