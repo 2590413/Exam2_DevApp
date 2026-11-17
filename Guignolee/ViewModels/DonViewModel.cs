@@ -26,9 +26,10 @@ namespace Guignolee.ViewModels
             get { return _don.Donateur; }
             set
             {
-                if (_don.Donateur != value)
+                if (_don.Donateur != value && Validate(value))
                 {
                     _don.Donateur = value;
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -39,10 +40,12 @@ namespace Guignolee.ViewModels
             get { return _don.Contenu; }
             set
             {
-                if (_don.Contenu != value )
+                if (_don.Contenu != value && Validate(value))
                 {
                     _don.Contenu = value;
+                    RaisePropertyChanged();
                 }
+         
             }
         }
 
@@ -53,10 +56,10 @@ namespace Guignolee.ViewModels
             get { return _don.Quantite; }
             set
             {
-                if (Quantite != value)
+                if (Quantite != value && Validate(value))
                 {
                     _don.Quantite = value;
-
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -67,9 +70,10 @@ namespace Guignolee.ViewModels
             get { return _don.EstPerissable; }
             set
             {
-                if (_don.EstPerissable != value)
+                if (_don.EstPerissable != value && Validate(value))
                 {
                     _don.EstPerissable = value;
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -79,9 +83,10 @@ namespace Guignolee.ViewModels
             get { return _don.EstRemis; }
             set
             {
-                if (_don.EstRemis != value)
+                if (_don.EstRemis != value && Validate(value))
                 {
                     _don.EstRemis = value;
+                    RaisePropertyChanged();
                 }
             }
         }

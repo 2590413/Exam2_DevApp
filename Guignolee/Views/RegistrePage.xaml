@@ -103,7 +103,10 @@
                 Grid.Row="3"
                 Orientation="Horizontal"
                 Spacing="10">
-                <Button Click="btnModifier_Click" Content="Modifier…" />
+                <Button 
+                    Click="btnModifier_Click" 
+                    Content="Modifier…" 
+                    IsEnabled="{x:Bind ViewModel.DonSelectionne.EstValide, Mode=OneWay}"/>
                 <Button
                     Background="#A4262C"
                     Click="btnMarquerRemis_Click"

@@ -6,6 +6,7 @@
     xmlns:local="using:Guignolee.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:Guignolee.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
@@ -92,11 +93,13 @@
                 Margin="0,28,0,0"
                 VerticalAlignment="Top"
                 Background="#A4262C"
-                Click="btnAjouter_Click"
+                Click="btnEnregistrer_Click"
                 IsEnabled="{x:Bind ViewModel.NouveauDon.EstValide, Mode=OneWay}"
                 Style="{StaticResource AccentButtonStyle}"
                 Content="Ajouter"
                 Foreground="White" />
                 </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

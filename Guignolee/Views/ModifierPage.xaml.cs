@@ -1,3 +1,5 @@
+using Guignolee.Data;
+using Guignolee.ViewModels.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -23,9 +25,30 @@ namespace Guignolee.Views
     /// </summary>
     public sealed partial class ModifierPage : Page
     {
+        public RegistreViewModel ViewModel { get; }
         public ModifierPage()
         {
-            InitializeComponent();
+            ViewModel = new RegistreViewModel(new DonDataProvider());
+            Loaded += MaisonPage_Loaded;
+        }
+
+        private void MaisonPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ChargerDonnees();
+        }
+
+        private void btnModifier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.NouveauDon.EstValide)
+            {
+                ViewModel.AjouterDon();
+            }
         }
     }
 }
+
