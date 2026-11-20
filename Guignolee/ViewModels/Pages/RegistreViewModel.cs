@@ -72,13 +72,19 @@ namespace Guignolee.ViewModels.Pages
         {
             // TODO: À compléter selon la documentation de la méthode.
 
-            List<Don> dons = _donDataProvider.GetDons();
+            List<Don> donsPerrissable = _donDataProvider.GetDons().Where(d => !d.EstRemis && d.EstPerissable == true).OrderBy(d => d.DateReception).ToList();
+            List<Don> donsNonPerrissable = _donDataProvider.GetDons().Where(d => !d.EstRemis && d.EstPerissable == false).OrderBy(d => d.DateReception).ToList();
+            Dons.Clear();
 
-
-            foreach (Don don in dons)
+            foreach (Don don in donsPerrissable)
             {
                 Dons.Add(new DonViewModel(don));
             }
+            foreach (Don don in donsNonPerrissable)
+            {
+                Dons.Add(new DonViewModel(don));
+            }
+            RaisePropertyChanged(nameof(EtatDons));
         }
 
         /// <summary>
@@ -89,8 +95,14 @@ namespace Guignolee.ViewModels.Pages
         {   
             _donDataProvider.AjouterDon(new Don(NouveauDon.Donateur, NouveauDon.Contenu, NouveauDon.Quantite, NouveauDon.EstPerissable));
 
-            Dons.Add(NouveauDon);
+            ChargerDonnees();
             NouveauDon = new DonViewModel(new Don(string.Empty));
+        }
+
+        public void MarquerRemis()
+        {
+            DonSelectionne?.EstRemis == true;
+            ChargerDonnees();
         }
     }
 }

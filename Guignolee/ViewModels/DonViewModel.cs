@@ -16,17 +16,24 @@ namespace Guignolee.ViewModels
             _errors.Add("Donateur", new ObservableCollection<ValidationResult>());
             _errors.Add("Contenu", new ObservableCollection<ValidationResult>());
             _errors.Add("Quantite", new ObservableCollection<ValidationResult>());
+
+            Validate(Donateur, nameof(Donateur));
+            Validate(Contenu, nameof(Contenu));
+            Validate(Quantite, nameof(Quantite));
+
         }
 
         public int Id => _don.Id;
 
         [Required(ErrorMessage = "Le champ est requis")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "De 2 à 50 caractères.")]
+        [RegularExpression(@"^[\p{L}\d ]+$", ErrorMessage = "Lettres, chiffres et espaces seulement.")]
         public string Donateur
         {
             get { return _don.Donateur; }
             set
             {
-                if (_don.Donateur != value && Validate(value))
+                if (_don.Contenu != value && Validate(value))
                 {
                     _don.Donateur = value;
                     RaisePropertyChanged();
@@ -35,6 +42,9 @@ namespace Guignolee.ViewModels
         }
 
         [Required(ErrorMessage = "Le champ est requis")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "De 2 à 50 caractères.")]
+        [RegularExpression(@"^[\p{L}\d ]+$", ErrorMessage = "Lettres, chiffres et espaces seulement.")]
+        [DeniedValues(["Nourriture", "Divers", "Denrées"], ErrorMessage = "Précisez votre contenu.")]
         public string Contenu
         {
             get { return _don.Contenu; }
@@ -64,13 +74,13 @@ namespace Guignolee.ViewModels
             }
         }
 
-        [Required(ErrorMessage = "Le champ est requis")]
+
         public bool EstPerissable
         {
             get { return _don.EstPerissable; }
             set
             {
-                if (_don.EstPerissable != value && Validate(value))
+                if (_don.EstPerissable != value)
                 {
                     _don.EstPerissable = value;
                     RaisePropertyChanged();
@@ -83,7 +93,7 @@ namespace Guignolee.ViewModels
             get { return _don.EstRemis; }
             set
             {
-                if (_don.EstRemis != value && Validate(value))
+                if (_don.EstRemis != value)
                 {
                     _don.EstRemis = value;
                     RaisePropertyChanged();
@@ -96,8 +106,15 @@ namespace Guignolee.ViewModels
         public string Details
         {
             get
-            {
-                return $"{_don.Quantite} article(s) - {_don.Donateur} - reçu le {_don.DateReception:dd-MM-yyyy}";
+            {   
+                if (_don.EstPerissable)
+                {
+                    return $"{_don.Quantite} article(s) - {_don.Donateur} - reçu le {_don.DateReception:dd-MM-yyyy} (Périssable)";
+                }
+                else
+                {
+                    return $"{_don.Quantite} article(s) - {_don.Donateur} - reçu le {_don.DateReception:dd-MM-yyyy}";
+                }
             }
         }
     }

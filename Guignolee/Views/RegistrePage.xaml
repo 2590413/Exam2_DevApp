@@ -146,8 +146,9 @@
                                 />
                                 
                             <ItemsView 
-                                  ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Donateur'), Mode=OneWay}" 
-                                  Foreground="Coral"
+                                AutomationProperties.Name="Erreurs du donateur"
+                                ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Donateur'), Mode=OneWay}" 
+                                Foreground="Coral"
                                 >       
                                 <ItemsView.Resources>
                                     <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
@@ -161,12 +162,14 @@
                                 Header="Contenu du don"
                                 PlaceholderText="Ex. : Conserves de soupe"
                                 Text="{x:Bind ViewModel.NouveauDon.Contenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ItemsView 
-                                ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Contenu'), Mode=OneWay}" 
-                                Foreground="Coral">
+                            <ItemsView
+                                AutomationProperties.Name="Erreurs du contenu"
+                                 ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Contenu'), Mode=OneWay}" 
+                                 Foreground="Coral">
                                 <ItemsView.Resources>
                                     <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
                                 </ItemsView.Resources>
+
                             </ItemsView>
                         </StackPanel>
 
@@ -177,13 +180,14 @@
                                 PlaceholderText="Ex. : 24"
                                 Text="{x:Bind ViewModel.NouveauDon.Quantite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ItemsView 
-                                ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Quantite'), Mode=OneWay}" 
-                                Foreground="Coral">     
+                                AutomationProperties.Name="Erreurs de la quantité"
+                                 ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Quantite'), Mode=OneWay}" 
+                                 Foreground="Coral">    
                                 <ItemsView.Resources>
                                     <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
                                 </ItemsView.Resources>
-                            </ItemsView>
 
+                            </ItemsView>
                         </StackPanel>
 
                         <CheckBox
@@ -191,7 +195,8 @@
                             Margin="0,28,0,0"
                             VerticalAlignment="Top"
                             Content="Périssable"
-                            IsChecked="False" />
+                            IsChecked="{x:Bind ViewModel.NouveauDon.EstPerissable, Mode=TwoWay}"
+                            />
 
                         <Button
                             Grid.Column="4"
