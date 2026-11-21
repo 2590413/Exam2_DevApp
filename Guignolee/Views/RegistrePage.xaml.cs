@@ -39,11 +39,21 @@ namespace Guignolee.Views
             ViewModel.ChargerDonnees();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter is DonViewModel donModifie)
+            {
+                ViewModel.ModifierDon(donModifie);
+            }
+            
+        }
+
         private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.DonSelectionne != null)
+            if (ViewModel.DonSelectionne is not null)
             {
-                Frame.Navigate(typeof(ModifierPage));
+                Frame.Navigate(typeof(ModifierPage),ViewModel.DonSelectionne);
             }
         }
 

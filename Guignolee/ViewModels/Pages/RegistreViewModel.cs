@@ -101,8 +101,27 @@ namespace Guignolee.ViewModels.Pages
 
         public void MarquerRemis()
         {
-            DonSelectionne?.EstRemis == true;
-            ChargerDonnees();
+            if (DonSelectionne != null)
+            {
+                DonSelectionne.EstRemis = true;
+                ChargerDonnees();
+            }
+        }
+
+        public bool ModifierDon(DonViewModel donModifieVM)
+        {
+            if (donModifieVM is null)
+            {
+                return false;
+            }
+
+            Don donModifie = new Don(donModifieVM.Donateur, donModifieVM.Contenu, donModifieVM.Quantite, donModifieVM.EstPerissable);
+            donModifie.Id = donModifieVM.Id;
+            donModifie.DateReception = donModifieVM.DateReception;
+
+            _donDataProvider.ModifierDon(donModifie);
+            ChargerDonnees() ;
+            return true;
         }
     }
 }

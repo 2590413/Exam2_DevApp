@@ -9,41 +9,60 @@
     xmlns:viewmodels="using:Guignolee.ViewModels"
     mc:Ignorable="d">
 
-    <Grid>
-        <Border
-    Grid.Row="4"
-    Padding="16"
-    Background="White"
-    BorderBrush="#A4262C"
-    BorderThickness="1"
-    CornerRadius="8">
+    <StackPanel Padding="16" Spacing="12">
+        <!--  En-tête : Logo et titre  -->
+        <Grid Grid.Row="0" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border BorderBrush="Pink" BorderThickness="1">
+                <Image
+        Grid.Column="0"
+        Width="72"
+        Height="72"
+        AutomationProperties.Name="Illustration : une boîte de dons avec un ruban"
+        Source="ms-appx:///Assets/Images/geralt-christmas-9185561.jpg" />
+            </Border>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock
+        AutomationProperties.HeadingLevel="Level1"
+        FontSize="28"
+        FontWeight="SemiBold"
+        Text="Registre des dons"
+        TextWrapping="Wrap" />
+                <TextBlock Text="Guignolée du cégep" />
+            </StackPanel>
+        </Grid>
+
+        <Grid
+     Grid.Row="4"
+     Padding="16"
+     Background="White"
+     BorderBrush="#A4262C"
+     BorderThickness="1"
+     CornerRadius="8">
             <StackPanel Spacing="12">
                 <TextBlock
-            AutomationProperties.HeadingLevel="Level2"
-            FontSize="18"
-            FontWeight="SemiBold"
-            Text="Nouveau don" />
+             AutomationProperties.HeadingLevel="Level2"
+             FontSize="18"
+             FontWeight="SemiBold"
+             />
 
-                <Grid ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.3*" />
-                        <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0">
+                <StackPanel>
                         <TextBox
-                    Header="Donateur"
-                    PlaceholderText="Prénom Nom"
-                    Text="{x:Bind ViewModel.NouveauDon.Donateur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    />
+                     Header="Donateur"
+                     PlaceholderText="Prénom Nom"
+                     Text="{x:Bind ViewModel.DonEdit.Donateur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     />
 
                         <ItemsView 
-                      ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Donateur'), Mode=OneWay}" 
-                      Foreground="Coral"
-                    >
+                     AutomationProperties.Name="Erreurs du donateur"
+                     ItemsSource="{x:Bind ViewModel.DonEdit.GetErrors('Donateur'), Mode=OneWay}" 
+                     Foreground="Coral"
+                     >
                             <ItemsView.Resources>
                                 <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
                             </ItemsView.Resources>
@@ -51,55 +70,72 @@
                         </ItemsView>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1">
+                    <StackPanel>
                         <TextBox
-                    Header="Contenu du don"
-                    PlaceholderText="Ex. : Conserves de soupe"
-                    Text="{x:Bind ViewModel.NouveauDon.Contenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <ItemsView 
-                    ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Contenu'), Mode=OneWay}" 
-                    Foreground="Coral">
+                     Header="Contenu du don"
+                     PlaceholderText="Ex. : Conserves de soupe"
+                     Text="{x:Bind ViewModel.DonEdit.Contenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ItemsView
+                     AutomationProperties.Name="Erreurs du contenu"
+                      ItemsSource="{x:Bind ViewModel.DonEdit.GetErrors('Contenu'), Mode=OneWay}" 
+                      Foreground="Coral">
                             <ItemsView.Resources>
                                 <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
                             </ItemsView.Resources>
+
                         </ItemsView>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="2">
+                    <StackPanel>
                         <TextBox
-                    Header="Quantité"
-                    MaxLength="3"
-                    PlaceholderText="Ex. : 24"
-                    Text="{x:Bind ViewModel.NouveauDon.Quantite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Header="Quantité"
+                     MaxLength="3"
+                     PlaceholderText="Ex. : 24"
+                     Text="{x:Bind ViewModel.DonEdit.Quantite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ItemsView 
-                    ItemsSource="{x:Bind ViewModel.NouveauDon.GetErrors('Quantite'), Mode=OneWay}" 
-                    Foreground="Coral">
+                     AutomationProperties.Name="Erreurs de la quantité"
+                      ItemsSource="{x:Bind ViewModel.DonEdit.GetErrors('Quantite'), Mode=OneWay}" 
+                      Foreground="Coral">
                             <ItemsView.Resources>
                                 <SolidColorBrush x:Key="ItemContainerPointerOverBackground" Color="Transparent"/>
                             </ItemsView.Resources>
-                        </ItemsView>
 
+                        </ItemsView>
                     </StackPanel>
 
                     <CheckBox
-                Grid.Column="3"
-                Margin="0,28,0,0"
-                VerticalAlignment="Top"
-                Content="Périssable"
-                IsChecked="False" />
+                 Margin="0,28,0,0"
+                 VerticalAlignment="Top"
+                 Content="Périssable"
+                 IsChecked="{x:Bind ViewModel.DonEdit.EstPerissable, Mode=TwoWay}"
+                 />
 
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                
                     <Button
-                Grid.Column="4"
-                Margin="0,28,0,0"
-                VerticalAlignment="Top"
-                Background="#A4262C"
-                Click="btnEnregistrer_Click"
-                IsEnabled="{x:Bind ViewModel.NouveauDon.EstValide, Mode=OneWay}"
-                Style="{StaticResource AccentButtonStyle}"
-                Content="Ajouter"
-                Foreground="White" />
+                     Margin="0,28,0,0"
+                     Grid.Column="0"
+                     VerticalAlignment="Top"
+                     Background="#A4262C"
+                     Click="btnEnregistrer_Click"
+                     IsEnabled="{x:Bind ViewModel.DonEdit.EstValide, Mode=OneWay}"
+                     Style="{StaticResource AccentButtonStyle}"
+                     Content="Enregistrer"
+                     Foreground="White" />
+                    <Button
+                     Margin="0,28,0,0"
+                     Grid.Column="1"
+                     VerticalAlignment="Top"
+                     Click="btnAnnuler_Click"
+                     Content="Annuler"
+                     />
+
                 </Grid>
             </StackPanel>
-        </Border>
-    </Grid>
+        </Grid>
+    </StackPanel>
 </Page>

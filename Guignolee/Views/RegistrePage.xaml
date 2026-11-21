@@ -78,7 +78,7 @@
                         Margin="0,8"
                         AutomationProperties.Name="Dons à remettre"
                         ItemsSource="{x:Bind ViewModel.Dons, Mode=OneWay}"
-                        SelectedItem="{x:Bind ViewModel.DonSelectionne, Mode=OneWay}">
+                        SelectedItem="{x:Bind ViewModel.DonSelectionne, Mode=TwoWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="viewmodels:DonViewModel">
                                 <StackPanel Padding="0,8">
@@ -111,7 +111,8 @@
                     Background="#A4262C"
                     Click="btnMarquerRemis_Click"
                     Content="Marquer comme remis"
-                    Foreground="White" />
+                    Foreground="White" 
+                    IsEnabled="{x:Bind ViewModel.DonSelectionne.EstValide, Mode=OneWay}"/>
             </StackPanel>
 
             <!--  Formulaire d'ajout  -->

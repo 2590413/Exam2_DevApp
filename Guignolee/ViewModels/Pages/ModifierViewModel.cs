@@ -1,6 +1,8 @@
-﻿namespace Guignolee.ViewModels.Pages
+﻿using System;
+
+namespace Guignolee.ViewModels.Pages
 {
-    public class ModifierDonViewModel : BaseViewModel
+    public class ModifierViewModel : ValidableViewModel
     {
         private DonViewModel _donEdit;
         public DonViewModel DonEdit
@@ -16,10 +18,9 @@
             }
         }
 
-        public ModifierDonViewModel(DonViewModel donViewModel)
+        public ModifierViewModel(DonViewModel donViewModel)
         {
             DonEdit = donViewModel;
         }
-
     }
 }
